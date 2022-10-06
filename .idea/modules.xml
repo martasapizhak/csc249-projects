@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CSC249-Project1-main.iml" filepath="$PROJECT_DIR$/.idea/CSC249-Project1-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../CSC249-HW3/csc249-networks-hw/.idea/csc249-networks-hw.iml" filepath="$PROJECT_DIR$/../CSC249-HW3/csc249-networks-hw/.idea/csc249-networks-hw.iml" />
+    </modules>
+  </component>
+</project>

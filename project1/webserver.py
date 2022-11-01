@@ -6,13 +6,12 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 # -------------
 # Fill in start
 # -------------
-
-# TODO: Assign a port number
-#       Bind the socket to server address and server port
-#       Tell the socket to listen to at most 1 connection at a time
-serverSocket.bind(('0.0.0.0', 6793))
+# Assign a port number
+# Bind the socket to server address and server port
+# Tell the socket to listen to at most 1 connection at a time
+port = 50991
+serverSocket.bind(("", port))
 serverSocket.listen(1)
-
 # -----------
 # Fill in end
 # -----------
@@ -25,8 +24,8 @@ while True:
     # -------------
     # Fill in start
     # -------------
-    connectionSocket, addr = serverSocket.accept()  # TODO: Set up a new connection from the client
-    print(addr)
+    # Set up a new connection from the client
+    connectionSocket, addr = serverSocket.accept()
     # -----------
     # Fill in end
     # -----------
@@ -36,7 +35,8 @@ while True:
         # -------------
         # Fill in start
         # -------------
-        message = connectionSocket.recv(1024)  # TODO: Receive the request message from the client
+        # Receive the request message from the client
+        message = connectionSocket.recv(1024)
         print(message)
         # -----------
         # Fill in end
@@ -45,7 +45,7 @@ while True:
         # Extract the path of the requested object from the message
         # The path is the second part of HTTP header, identified by [1]
         filename = message.split()[1]
-        print(filename)
+
         # Because the extracted path of the HTTP request includes
         # a character '\', we read the path from the second character
         f = open(filename[1:])
@@ -53,7 +53,8 @@ while True:
         # -------------
         # Fill in start
         # -------------
-        outputdata = f.read()  # TODO: Store the entire contents of the requested file in a temporary buffer
+        # Store the entire contents of the requested file in a temporary buffer
+        outputdata = f.read()
         # -----------
         # Fill in end
         # -----------
@@ -61,8 +62,8 @@ while True:
         # -------------
         # Fill in start
         # -------------
-        # TODO: Send one HTTP header line into socket
-        connectionSocket.send('HTTP/1.1 200 OK'.encode())
+        # Send one HTTP header line into socket
+        connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
         # -----------
         # Fill in end
         # -----------
@@ -75,17 +76,17 @@ while True:
         connectionSocket.close()
 
     except IOError:
-
         # -------------
         # Fill in start
         # -------------
-        connectionSocket.send('file not found'.encode())
+        # Send response message for file not found
+        connectionSocket.send(bytes("HTTP/1.1 404 Not Found\r\n\r\n", "UTF-8"))
+        connectionSocket.send(bytes("<html><head></head><body><h1>404 Not Found</h1></body></html>\r\n", "UTF-8"))
         connectionSocket.close()
-# TODO: Send response message for file not found
-#       Close client socket
-# -----------
-# Fill in end
-# -----------
 
-serverSocket.close()
-sys.exit()  # Terminate the program after sending the corresponding data
+        # -----------
+        # Fill in end
+        # -----------
+
+# serverSocket.close()
+# sys.exit()  # Terminate the program after sending the corresponding data

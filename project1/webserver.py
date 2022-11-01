@@ -88,5 +88,5 @@ while True:
         # Fill in end
         # -----------
 
-# serverSocket.close()
-# sys.exit()  # Terminate the program after sending the corresponding data
+serverSocket.close()
+sys.exit()  # Terminate the program after sending the corresponding data
